@@ -1,0 +1,44 @@
+{
+  "name": "gaea",
+  "version": "1.0.0",
+  "description": "app to track outdoor activites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencerasava/gaea.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spencerasava/gaea/issues"
+  },
+  "homepage": "https://github.com/spencerasava/gaea#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "colors": "^1.4.0",
+    "express": "^4.17.1",
+    "jest": "^27.0.6",
+    "materialize-css": "^1.0.0-rc.2",
+    "mongoose": "^5.13.2",
+    "morgan": "^1.10.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.43.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-react": "^7.24.0",
+    "webpack-cli": "^4.7.2"
+  }
+}
