@@ -1,8 +1,12 @@
 import React from 'react';
+import Home from './components/Home'
 
 const App = () => {
   return (
-    <div>γεια gaea</div>
+    <div>
+      <div>γεια gaea</div>
+      <Home />
+    </div>
   )
 }
 
