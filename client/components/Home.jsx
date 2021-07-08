@@ -4,6 +4,8 @@ import ActivityFeed from './ActivityFeed';
 import RegisterUserForm from './RegisterUserForm';
 import LoginForm from './LoginForm';
 import HomeFeed from './HomeFeed';
+import UserFeed from './UserFeed';
+import ActivityForm from './ActivityForm';
 
 const Home = (props) => {
   let [loggedIn, setLoggedIn] = useState(false);
@@ -13,13 +15,14 @@ const Home = (props) => {
   let [passwordConfirm, setPasswordConfirm] = useState('');
   let [isRegistered, setIsRegistered] = useState(true);
   let [activities, setActivities] = useState([]);
+  let [userActivities, setUserActivities] = useState([]);
 
   const getActivities = () => {
     axios.get('/activities')
       .then(response => setActivities(response.data))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
     // console.log('get request for activities has been run')
-  }
+  };
 
   const loginCheckUser = () => {
     axios.get(`/login/?email=${email}`)
@@ -29,8 +32,8 @@ const Home = (props) => {
       } else {
         alert('this account has not been registered')
       }
-    }).catch(err => console.log(err))
-  }
+    }).catch(err => console.log(err));
+  };
 
   const registerUser = () => {
     console.log('got to register user post')
@@ -38,10 +41,21 @@ const Home = (props) => {
       name,
       email,
       password,
-    })
-  }
+    }).then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
 
-  const guestLoginClick = () => {
+  const getUserActivities = async (userEmail) => {
+    let results = await fetch(`/user/activities?email=${userEmail}`);
+    results = await results.json();
+    console.log('these are the reults with fetch', results);
+    setUserActivities(results)
+    // await axios.get(`/user/activities?email=${userEmail}`)
+    //   .then(response => response.data)
+    //   .catch(err => console.log(err));
+  };
+
+  const guestLoginClick = async () => {
     setEmail('guest@email.com');
     setName('guest');
     setLoggedIn(true);
@@ -94,12 +108,32 @@ const Home = (props) => {
             <ActivityFeed />
           </div>
         : formOutput
-        // : <RegisterUserForm email={email} name={name} password={password} passwordConfirm={passwordConfirm} loggedIn={loggedIn}/>
       }
-      <button type="button" onClick={guestLoginClick}>Login as guest</button>
-      <button type="button" onClick={userLogout}>Logout</button>
-      <div> All Users Feed </div>
-      <HomeFeed activities={activities}/>
+      {loggedIn
+        ? <button type="button" onClick={userLogout}>Logout</button>
+        : <button type="button" onClick={guestLoginClick}>Login as guest</button>
+      }
+      {/* <button type="button" onClick={guestLoginClick}>Login as guest</button>
+      <button type="button" onClick={userLogout}>Logout</button> */}
+
+      {loggedIn
+        ? (
+          <div>
+            <div> user feed goes here </div>
+            <UserFeed
+              getUserActivities={getUserActivities}
+              email={email}
+              userActivities={userActivities}
+              setUserActivities={setUserActivities}/>
+            <ActivityForm email={email} getUserActivities={getUserActivities}/>
+          </div>
+        )
+        : (
+          <div>
+            <div> All Users Feed </div>
+            <HomeFeed activities={activities} />
+          </div>
+        )}
     </div>
   )
 }

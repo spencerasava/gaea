@@ -27,7 +27,7 @@ const getUserActivities = async (req, res) => {
 }
 
 const createUserActivities = (req, res) => {
-  db.addActivity(null, tempActivity);
+  db.addActivity(null, req.body);
   res.sendStatus(201);
 }
 

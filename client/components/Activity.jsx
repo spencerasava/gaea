@@ -8,6 +8,7 @@ const Activity = (props) => {
       <h5>Activity location: {activity.location}</h5>
       <div>Notes:</div>
       <div>{activity.notes}</div>
+      <h6>From: {activity.email}</h6>
     </div>
   )
 }
