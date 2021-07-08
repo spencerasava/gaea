@@ -3,6 +3,7 @@ import axios from 'axios';
 import ActivityFeed from './ActivityFeed';
 import RegisterUserForm from './RegisterUserForm';
 import LoginForm from './LoginForm';
+import HomeFeed from './HomeFeed';
 
 const Home = (props) => {
   let [loggedIn, setLoggedIn] = useState(false);
@@ -14,8 +15,30 @@ const Home = (props) => {
   let [activities, setActivities] = useState([]);
 
   const getActivities = () => {
-    // axios.get()
-    console.log('get request for activities has been run')
+    axios.get('/activities')
+      .then(response => setActivities(response.data))
+      .catch(err => console.log(err))
+    // console.log('get request for activities has been run')
+  }
+
+  const loginCheckUser = () => {
+    axios.get(`/login/?email=${email}`)
+    .then(response => {
+      if (response.data.count > 0) {
+        setLoggedIn(true)
+      } else {
+        alert('this account has not been registered')
+      }
+    }).catch(err => console.log(err))
+  }
+
+  const registerUser = () => {
+    console.log('got to register user post')
+    axios.post('/users', {
+      name,
+      email,
+      password,
+    })
   }
 
   const guestLoginClick = () => {
@@ -42,7 +65,8 @@ const Home = (props) => {
     setIsRegistered={setIsRegistered}
     setEmail={setEmail}
     setName={setName}
-    setPassword={setPassword}/>
+    setPassword={setPassword}
+    loginCheckUser={loginCheckUser}/>
   : <RegisterUserForm
     email={email}
     name={name}
@@ -54,15 +78,16 @@ const Home = (props) => {
     setEmail={setEmail}
     setName={setName}
     setPassword={setPassword}
-    setPasswordConfirm={setPasswordConfirm}/>
+    setPasswordConfirm={setPasswordConfirm}
+    registerUser={registerUser}/>
 
   useEffect(() => {
     getActivities();
-  })
+  }, [])
 
   return (
     <div>
-      {loggedIn ? <h1>You are logged in as {name}</h1> : <h1>You are not logged in</h1>}
+      {loggedIn ? <h1>WELCOME {name}</h1> : <h1>You are not logged in</h1>}
       {loggedIn
         ? <div className="activity-feed">
             logged in
@@ -73,6 +98,8 @@ const Home = (props) => {
       }
       <button type="button" onClick={guestLoginClick}>Login as guest</button>
       <button type="button" onClick={userLogout}>Logout</button>
+      <div> All Users Feed </div>
+      <HomeFeed activities={activities}/>
     </div>
   )
 }
