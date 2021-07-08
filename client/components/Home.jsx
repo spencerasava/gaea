@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ActivityFeed from './ActivityFeed';
 import RegisterUserForm from './RegisterUserForm';
 import LoginForm from './LoginForm';
@@ -10,6 +11,12 @@ const Home = (props) => {
   let [password, setPassword] = useState('');
   let [passwordConfirm, setPasswordConfirm] = useState('');
   let [isRegistered, setIsRegistered] = useState(true);
+  let [activities, setActivities] = useState([]);
+
+  const getActivities = () => {
+    // axios.get()
+    console.log('get request for activities has been run')
+  }
 
   const guestLoginClick = () => {
     setEmail('guest@email.com');
@@ -20,6 +27,7 @@ const Home = (props) => {
   const userLogout = () => {
     setEmail('');
     setName('');
+    setPassword('');
     setLoggedIn(false);
   }
 
@@ -47,6 +55,10 @@ const Home = (props) => {
     setName={setName}
     setPassword={setPassword}
     setPasswordConfirm={setPasswordConfirm}/>
+
+  useEffect(() => {
+    getActivities();
+  })
 
   return (
     <div>
