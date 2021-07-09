@@ -4,13 +4,18 @@ const RegisterUserForm = (props) => {
   const { email, name, password, passwordConfirm, setIsRegistered, setName, setEmail, setPassword, setPasswordConfirm, registerUser } = props;
 
   const handleRegister = () => {
-    console.log('handleRegister has been called')
+    // console.log('handleRegister has been called')
     if (password === passwordConfirm) {
       registerUser();
       setIsRegistered(true);
     } else {
       alert('Please enter matching passwords')
     }
+  }
+
+  const handleRegisterSubmit = (event) => {
+    event.preventDefault();
+    handleRegister();
   }
 
   return (
@@ -24,7 +29,7 @@ const RegisterUserForm = (props) => {
         </input>
         <input type="password" name="passwordConfirm" placeholder="Re-enter Password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} required>
         </input>
-        <button type="submit" onClick={handleRegister}>
+        <button type="submit" onClick={handleRegisterSubmit}>
           Register
         </button>
       </form>

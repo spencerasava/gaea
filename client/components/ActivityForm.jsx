@@ -24,6 +24,7 @@ const ActivityForm = (props) => {
     setActivity('');
     setLocation('');
     setNotes('');
+    toggleModal();
     getUserActivities(email);
   }
 

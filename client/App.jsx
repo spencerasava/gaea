@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div className={darkMode ? "app-container dark" : "app-container"}>
       <div>γεια gaea</div>
-      <div>&lt;hello gaea&gt;</div>
+      {/* <div>&lt;hello gaea&gt;</div> */}
       {darkMode
         ? <button className="dark-mode-button" type="button" onClick={toggleDarkMode}>light</button>
         : <button className="dark-mode-button" type="button" onClick={toggleDarkMode}>dark</button>

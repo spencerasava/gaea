@@ -101,13 +101,12 @@ const Home = (props) => {
     if (loggedIn) {
       return (
         <div className="feed-container">
-            {/* <div> user feed goes here </div> */}
             <UserFeed
               getUserActivities={getUserActivities}
               email={email}
               userActivities={userActivities}
               setUserActivities={setUserActivities}/>
-            {showModal ? <ActivityForm email={email} getUserActivities={getUserActivities} toggleModal={toggleModal} darkMode={darkMode}/> : null}
+            {/* {showModal ? <ActivityForm email={email} getUserActivities={getUserActivities} toggleModal={toggleModal} darkMode={darkMode}/> : null} */}
           </div>
       )
     } else {
@@ -130,39 +129,43 @@ const Home = (props) => {
 
   useEffect(() => {
     getActivities();
+    getUserActivities();
   }, [])
 
   return (
-    <div
-      className={showModal ? "home-container-unfocused" : "home-container"}
-      onClick={showModal ? toggleModal : () => {}}
-    >
-      <div className="header-container">
-        {loggedIn ? <h1>WELCOME {name}</h1> : <h1>You are not logged in</h1>}
-      </div>
-      <div className="login-form-container">
-        {loggedIn
-          ? <div className="activity-feed">
-              logged in
-            </div>
-          : formOutput
-        }
-      </div>
-      <div className="login-buttons">
-        {loggedIn
-          ? (
-            <div>
-              <button type="button" onClick={userLogout}>Logout</button>
-              <button type="button" onClick={toggleModal}>Submit new activity</button>
-            </div>
-          )
-          : <button type="button" onClick={guestLoginClick}>Login as guest</button>
+    <div>
+      <div
+        className={showModal ? "home-container-unfocused" : "home-container"}
+        onClick={showModal ? toggleModal : () => {}}
+      >
+        <div className="header-container">
+          {loggedIn ? <h1>WELCOME {name}</h1> : <h1>&lt;hello gaea&gt;</h1>}
+        </div>
+        <div className="login-form-container">
+          {loggedIn
+            ? <div className="activity-feed">
+                logged in
+              </div>
+            : formOutput
+          }
+        </div>
+        <div className="login-buttons">
+          {loggedIn
+            ? (
+              <div>
+                <button type="button" onClick={userLogout}>Logout</button>
+                <button type="button" onClick={toggleModal}>Submit new activity</button>
+              </div>
+            )
+            : <button type="button" onClick={guestLoginClick}>Login as guest</button>
 
-        }
+          }
+        </div>
+        <div>
+          {feedRender()}
+        </div>
       </div>
-      <div>
-        {feedRender()}
-      </div>
+      {showModal ? <ActivityForm email={email} getUserActivities={getUserActivities} toggleModal={toggleModal} darkMode={darkMode}/> : null}
     </div>
   )
 }
