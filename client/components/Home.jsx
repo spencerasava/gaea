@@ -100,26 +100,30 @@ const Home = (props) => {
   }, [])
 
   return (
-    <div>
-      {loggedIn ? <h1>WELCOME {name}</h1> : <h1>You are not logged in</h1>}
-      {loggedIn
-        ? <div className="activity-feed">
-            logged in
-            <ActivityFeed />
-          </div>
-        : formOutput
-      }
-      {loggedIn
-        ? <button type="button" onClick={userLogout}>Logout</button>
-        : <button type="button" onClick={guestLoginClick}>Login as guest</button>
-      }
-      {/* <button type="button" onClick={guestLoginClick}>Login as guest</button>
-      <button type="button" onClick={userLogout}>Logout</button> */}
-
+    <div className="home-container">
+      <div className="header-container">
+        {loggedIn ? <h1>WELCOME {name}</h1> : <h1>You are not logged in</h1>}
+      </div>
+      <div className="login-form-container">
+        {loggedIn
+          ? <div className="activity-feed">
+              logged in
+              {/* <ActivityFeed /> */}
+            </div>
+          : formOutput
+        }
+      </div>
+      <div className="login-buttons">
+        {loggedIn
+          ? <button type="button" onClick={userLogout}>Logout</button>
+          : <button type="button" onClick={guestLoginClick}>Login as guest</button>
+        }
+      </div>
+      <div>
       {loggedIn
         ? (
-          <div>
-            <div> user feed goes here </div>
+          <div className="feed-container">
+            {/* <div> user feed goes here </div> */}
             <UserFeed
               getUserActivities={getUserActivities}
               email={email}
@@ -129,11 +133,12 @@ const Home = (props) => {
           </div>
         )
         : (
-          <div>
-            <div> All Users Feed </div>
+          <div className="feed-container">
+            {/* <div> All Users Feed </div> */}
             <HomeFeed activities={activities} />
           </div>
         )}
+      </div>
     </div>
   )
 }

@@ -10,7 +10,7 @@ const UserFeed = (props) => {
   }, [email])
 
   return (
-    <div>
+    <div className="user-feed-container">
       {userActivities.map((activity => (
         <Activity activity={activity} key={activity._id}/>
       )))}

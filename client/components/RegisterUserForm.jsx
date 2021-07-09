@@ -25,10 +25,10 @@ const RegisterUserForm = (props) => {
         <input type="password" name="passwordConfirm" placeholder="Re-enter Password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} required>
         </input>
         <button type="submit" onClick={handleRegister}>
-          submit
+          Register
         </button>
       </form>
-      <div>Already have an account?</div>
+      <div className="form-text">Already have an account?</div>
       <button type="button" onClick={() => setIsRegistered(true)}>Login here</button>
     </div>
   )

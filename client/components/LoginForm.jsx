@@ -17,9 +17,9 @@ const LoginForm = (props) => {
       <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required>
       </input>
       <button type="submit" onClick={handleSubmit}>
-        submit
+        Login
       </button>
-      <div>Haven't logged in before?</div>
+      <div className="form-text">Haven't logged in before?</div>
       <button type="button" onClick={() => setIsRegistered(false)}>Register Here</button>
     </form>
   )
