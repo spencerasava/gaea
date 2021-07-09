@@ -21,7 +21,7 @@ const App = () => {
         : <button className="dark-mode-button" type="button" onClick={toggleDarkMode}>dark</button>
       }
 
-      <Home />
+      <Home darkMode={darkMode}/>
     </div>
   )
 }

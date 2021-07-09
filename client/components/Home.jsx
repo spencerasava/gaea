@@ -8,6 +8,7 @@ import UserFeed from './UserFeed';
 import ActivityForm from './ActivityForm';
 
 const Home = (props) => {
+  const { darkMode } = props
   let [loggedIn, setLoggedIn] = useState(false);
   let [email, setEmail] = useState('');
   let [name, setName] = useState('');
@@ -16,6 +17,7 @@ const Home = (props) => {
   let [isRegistered, setIsRegistered] = useState(true);
   let [activities, setActivities] = useState([]);
   let [userActivities, setUserActivities] = useState([]);
+  let [showModal, setShowModal] = useState(false);
 
   const getActivities = () => {
     axios.get('/activities')
@@ -95,12 +97,46 @@ const Home = (props) => {
     setPasswordConfirm={setPasswordConfirm}
     registerUser={registerUser}/>
 
+  const feedRender = () => {
+    if (loggedIn) {
+      return (
+        <div className="feed-container">
+            {/* <div> user feed goes here </div> */}
+            <UserFeed
+              getUserActivities={getUserActivities}
+              email={email}
+              userActivities={userActivities}
+              setUserActivities={setUserActivities}/>
+            {showModal ? <ActivityForm email={email} getUserActivities={getUserActivities} toggleModal={toggleModal} darkMode={darkMode}/> : null}
+          </div>
+      )
+    } else {
+      return (
+        <div className="feed-container">
+          <HomeFeed activities={activities} />
+        </div>
+      )
+    }
+  }
+
+  const toggleModal = () => {
+    if (showModal) {
+      setShowModal(false);
+    } else {
+      setShowModal(true);
+    }
+  }
+
+
   useEffect(() => {
     getActivities();
   }, [])
 
   return (
-    <div className="home-container">
+    <div
+      className={showModal ? "home-container-unfocused" : "home-container"}
+      onClick={showModal ? toggleModal : () => {}}
+    >
       <div className="header-container">
         {loggedIn ? <h1>WELCOME {name}</h1> : <h1>You are not logged in</h1>}
       </div>
@@ -108,39 +144,46 @@ const Home = (props) => {
         {loggedIn
           ? <div className="activity-feed">
               logged in
-              {/* <ActivityFeed /> */}
             </div>
           : formOutput
         }
       </div>
       <div className="login-buttons">
         {loggedIn
-          ? <button type="button" onClick={userLogout}>Logout</button>
+          ? (
+            <div>
+              <button type="button" onClick={userLogout}>Logout</button>
+              <button type="button" onClick={toggleModal}>Submit new activity</button>
+            </div>
+          )
           : <button type="button" onClick={guestLoginClick}>Login as guest</button>
+
         }
       </div>
       <div>
-      {loggedIn
-        ? (
-          <div className="feed-container">
-            {/* <div> user feed goes here </div> */}
-            <UserFeed
-              getUserActivities={getUserActivities}
-              email={email}
-              userActivities={userActivities}
-              setUserActivities={setUserActivities}/>
-            <ActivityForm email={email} getUserActivities={getUserActivities}/>
-          </div>
-        )
-        : (
-          <div className="feed-container">
-            {/* <div> All Users Feed </div> */}
-            <HomeFeed activities={activities} />
-          </div>
-        )}
+        {feedRender()}
       </div>
     </div>
   )
 }
 
 export default Home;
+
+// {loggedIn
+//   ? (
+//     <div className="feed-container">
+//       {/* <div> user feed goes here </div> */}
+//       <UserFeed
+//         getUserActivities={getUserActivities}
+//         email={email}
+//         userActivities={userActivities}
+//         setUserActivities={setUserActivities}/>
+//       <ActivityForm email={email} getUserActivities={getUserActivities}/>
+//     </div>
+//   )
+//   : (
+//     <div className="feed-container">
+//       {/* <div> All Users Feed </div> */}
+//       <HomeFeed activities={activities} />
+//     </div>
+//   )}
