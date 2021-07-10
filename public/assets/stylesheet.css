@@ -23,6 +23,10 @@
   color: white;
 }
 
+.unfocused {
+  opacity: 25%;
+}
+
 button {
   border-radius: 0%;
   color: whitesmoke;
@@ -109,6 +113,12 @@ button:hover {
   float: right;
 }
 
+.dark-input {
+  color: white;
+  background-color: black;
+  border: solid white 2px;
+}
+
 .close-modal-button {
   align-items: baseline;
   float: bottom;
@@ -158,6 +168,7 @@ button:hover {
   margin: 25px;
   box-shadow: 10px 10px 10px rgb(200, 200, 200);
   padding: 25px;
+  background:rgba(0, 0, 0, 0.2);
 }
 
 .home-feed-container::-webkit-scrollbar {

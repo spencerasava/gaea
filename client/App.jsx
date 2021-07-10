@@ -5,11 +5,7 @@ const App = () => {
   let [darkMode, setDarkMode] = useState(false)
 
   const toggleDarkMode = () => {
-    if (darkMode) {
-      setDarkMode(false)
-    } else {
-      setDarkMode(true)
-    }
+    setDarkMode(!darkMode)
   }
 
   return (

@@ -31,11 +31,23 @@ const ActivityForm = (props) => {
   return (
     <div className={darkMode ? "dark-modal" : "activity-form-modal"}>
       <form className="form activity-input">
-          <input className="activity-input" value={activity} placeholder="Activity" onChange={(e) => setActivity(e.target.value)} required>
+          <input
+            className={darkMode ? "activity-input dark-input": "activity-input"}
+            value={activity} placeholder="Activity"
+            onChange={(e) => setActivity(e.target.value)}
+            required>
           </input>
-          <input className="location-input" value={location} placeholder="Location" onChange={(e) => setLocation(e.target.value)} required>
+          <input
+            className={darkMode ? "location-input dark-input": "location-input"}
+            value={location} placeholder="Location"
+            onChange={(e) => setLocation(e.target.value)}
+            required>
           </input>
-          <textarea className="notes-input" value={notes} placeholder="Notes" onChange={(e) => setNotes(e.target.value)} required>
+          <textarea
+            className={darkMode ? "notes-input dark-input" : "notes-input"}
+            value={notes} placeholder="Notes"
+            onChange={(e) => setNotes(e.target.value)}
+            required>
           </textarea>
       </form>
       <div>

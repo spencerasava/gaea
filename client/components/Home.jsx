@@ -119,11 +119,7 @@ const Home = (props) => {
   }
 
   const toggleModal = () => {
-    if (showModal) {
-      setShowModal(false);
-    } else {
-      setShowModal(true);
-    }
+    setShowModal(!showModal)
   }
 
 
@@ -135,7 +131,7 @@ const Home = (props) => {
   return (
     <div>
       <div
-        className={showModal ? "home-container-unfocused" : "home-container"}
+        className={showModal ? "home-container unfocused" : "home-container"}
         onClick={showModal ? toggleModal : () => {}}
       >
         <div className="header-container">
