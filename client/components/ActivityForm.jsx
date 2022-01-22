@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const ActivityForm = (props) => {
-  const { email, getUserActivities, toggleModal, darkMode } = props;
+  const { email, getUserActivities, toggleModal, darkMode, setCounter, counter } = props;
   let [activity, setActivity] = useState('');
   let [location, setLocation] = useState('');
   let [notes, setNotes] = useState('');
@@ -15,7 +15,7 @@ const ActivityForm = (props) => {
       location,
       notes,
       photos,
-    })
+    }).then(() => {getUserActivities(email)})
   }
 
   const handleActivitySubmit = (event) => {
@@ -24,8 +24,9 @@ const ActivityForm = (props) => {
     setActivity('');
     setLocation('');
     setNotes('');
+    setCounter(counter += 1)
     toggleModal();
-    getUserActivities(email);
+    // getUserActivities(email);
   }
 
   return (

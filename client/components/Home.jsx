@@ -18,6 +18,7 @@ const Home = (props) => {
   let [activities, setActivities] = useState([]);
   let [userActivities, setUserActivities] = useState([]);
   let [showModal, setShowModal] = useState(false);
+  let [counter, setCounter] = useState(0)
 
   const getActivities = () => {
     axios.get('/activities')
@@ -28,13 +29,13 @@ const Home = (props) => {
 
   const loginCheckUser = () => {
     axios.get(`/login/?email=${email}`)
-    .then(response => {
-      if (response.data.count > 0) {
-        setLoggedIn(true)
-      } else {
-        alert('this account has not been registered')
-      }
-    }).catch(err => console.log(err));
+      .then(response => {
+        if (response.data.count > 0) {
+          setLoggedIn(true)
+        } else {
+          alert('this account has not been registered')
+        }
+      }).catch(err => console.log(err));
   };
 
   const registerUser = () => {
@@ -51,7 +52,8 @@ const Home = (props) => {
     let results = await fetch(`/user/activities?email=${userEmail}`);
     results = await results.json();
     console.log('these are the reults with fetch', results);
-    setUserActivities(results)
+    setUserActivities(results);
+    setCounter(counter += 1);
     // await axios.get(`/user/activities?email=${userEmail}`)
     //   .then(response => response.data)
     //   .catch(err => console.log(err));
@@ -122,11 +124,15 @@ const Home = (props) => {
     setShowModal(!showModal)
   }
 
+  const addedThisForGHDesktop = () => {
+    console.log('hmmmmm')
+  }
+
 
   useEffect(() => {
     getActivities();
-    getUserActivities();
-  }, [])
+    getUserActivities(email);
+  }, [email])
 
   return (
     <div>
@@ -159,9 +165,10 @@ const Home = (props) => {
         </div>
         <div>
           {feedRender()}
+          {addedThisForGHDesktop()}
         </div>
       </div>
-      {showModal ? <ActivityForm email={email} getUserActivities={getUserActivities} toggleModal={toggleModal} darkMode={darkMode}/> : null}
+      {showModal ? <ActivityForm email={email} setCounter={setCounter} counter={counter} getUserActivities={getUserActivities} toggleModal={toggleModal} darkMode={darkMode}/> : null}
     </div>
   )
 }
