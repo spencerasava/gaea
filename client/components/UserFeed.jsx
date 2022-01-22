@@ -1,8 +1,9 @@
-import React,{ useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import Activity from './Activity';
 
 const UserFeed = (props) => {
   const { getUserActivities, email, userActivities } = props;
+  // const [counter, setCounter]
 
 
   useEffect(() => {
